@@ -34,6 +34,8 @@ dynamic lookupStandardMembers(dynamic target, String name) {
     result = _processMap(target, name);
   } else if (target is MapEntry) {
     result = _processMapEntry(target, name);
+  } else if (target is NumberFormat) {
+    result = _processNumberFormat(target, name);
   } else if (target is double || target is int || target is num) {
     result = _processNum(target, name);
   } else if (target is String) {
@@ -520,6 +522,17 @@ dynamic _processMapEntry(MapEntry target, String name) {
       break;
   }
 
+  return result;
+}
+
+dynamic _processNumberFormat(NumberFormat target, String name) {
+  dynamic result;
+
+  switch (name) {
+    case 'format':
+      result = target.format;
+      break;
+  }
   return result;
 }
 

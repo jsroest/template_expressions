@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:template_expressions/template_expressions.dart';
 import 'package:test/test.dart';
@@ -378,6 +379,55 @@ void main() {
           context: {'input': utf8.encode(input)},
         ),
         input,
+      );
+    });
+  });
+
+  group('NumberFormat', () {
+    final context = <String, dynamic>{};
+    context['number'] = 0.999;
+
+    test('formatting', () {
+      //Dutch uses a comma as the decimal separator
+      var template = Template(
+        value: r'${NumberFormat("0.00","nl_NL").format(number)}',
+      );
+
+      expect(
+        template.process(context: context),
+        '1,00',
+      );
+
+      //US english uses a period as the decimal separator
+      template = Template(
+        value: r'${NumberFormat("0.00","en_US").format(number)}',
+      );
+
+      expect(
+        template.process(context: context),
+        '1.00',
+      );
+
+      //When no locale specified the current locale will be used
+      Intl.defaultLocale = 'nl_NL';
+      template = Template(
+        value: r'${NumberFormat("0.00").format(number)}',
+      );
+
+      expect(
+        template.process(context: context),
+        '1,00',
+      );
+
+      //When no locale specified the current locale will be used
+      Intl.defaultLocale = 'en_US';
+      template = Template(
+        value: r'${NumberFormat("0.00").format(number)}',
+      );
+
+      expect(
+        template.process(context: context),
+        '1.00',
       );
     });
   });
