@@ -5,7 +5,7 @@ import 'package:json_class/json_class.dart';
 class DateTimeFunctions {
   /// The functions related to Date / Time processing.
   static final functions = {
-    'DateFormat': (format) => DateFormat(format ?? 'yyyy-MM-dd'),
+    'DateFormat': ([newPattern, locale]) => DateFormat(newPattern, locale),
     'DateTime': (value, [month, date, hour, minute, second, millisecond]) =>
         (month != null ||
                 date != null ||
