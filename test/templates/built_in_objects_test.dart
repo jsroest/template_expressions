@@ -409,48 +409,52 @@ void main() {
       );
 
       //When no locale specified the current locale will be used
-      Intl.defaultLocale = 'nl_NL';
-      template = Template(
-        value: r'${NumberFormat("0.00").format(number)}',
-      );
+      Intl.withLocale('nl_NL', () {
+        template = Template(
+          value: r'${NumberFormat("0.00").format(number)}',
+        );
 
-      expect(
-        template.process(context: context),
-        '1,00',
-      );
+        expect(
+          template.process(context: context),
+          '1,00',
+        );
+      });
 
       //When no locale specified the current locale will be used
-      Intl.defaultLocale = 'en_US';
-      template = Template(
-        value: r'${NumberFormat("0.00").format(number)}',
-      );
+      Intl.withLocale('en_US', () {
+        template = Template(
+          value: r'${NumberFormat("0.00").format(number)}',
+        );
 
-      expect(
-        template.process(context: context),
-        '1.00',
-      );
-
-      //When no locale and no pattern is specified
-      Intl.defaultLocale = 'nl_NL';
-      template = Template(
-        value: r'${NumberFormat().format(number)}',
-      );
-
-      expect(
-        template.process(context: context),
-        '0,999',
-      );
+        expect(
+          template.process(context: context),
+          '1.00',
+        );
+      });
 
       //When no locale and no pattern is specified
-      Intl.defaultLocale = 'en_US';
-      template = Template(
-        value: r'${NumberFormat().format(number)}',
-      );
+      Intl.withLocale('nl_NL', () {
+        template = Template(
+          value: r'${NumberFormat().format(number)}',
+        );
 
-      expect(
-        template.process(context: context),
-        '0.999',
-      );
+        expect(
+          template.process(context: context),
+          '0,999',
+        );
+      });
+
+      //When no locale and no pattern is specified
+      Intl.withLocale('en_US', () {
+        template = Template(
+          value: r'${NumberFormat().format(number)}',
+        );
+
+        expect(
+          template.process(context: context),
+          '0.999',
+        );
+      });
     });
   });
 
