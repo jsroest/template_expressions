@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:template_expressions/template_expressions.dart';
@@ -21,6 +22,10 @@ void main() {
       print('${record.stackTrace}');
     }
   });
+
+  //Initialize the locale date to prevent this exception:
+  //LocaleDataException: Locale data has not been initialized, call initializeDateFormatting(<locale>).
+  setUp(initializeDateFormatting);
 
   group('Crypto', () {
     test(
@@ -179,6 +184,58 @@ void main() {
         template.process(context: context),
         '2022-02-07',
       );
+
+      //DateFormat called with no parameters
+      //Zone's Locale set to en_US
+      Intl.withLocale('en_US', () {
+        template = Template(
+          value:
+              r'${DateFormat().format(DateTime([2024, 03, 15, 14, 18, 58, 99, 98]))}',
+        );
+        expect(
+          template.process(context: context),
+          'March 15, 2024 2:18:58 PM',
+        );
+      });
+
+      //DateFormat called with no parameters
+      //Zone's locale set to nl_NL
+      Intl.withLocale('nl_NL', () {
+        template = Template(
+          value:
+              r'${DateFormat().format(DateTime([2024, 03, 15, 14, 18, 58, 99, 98]))}',
+        );
+        expect(
+          template.process(context: context),
+          '15 maart 2024 14:18:58',
+        );
+      });
+
+      //DateFormat called with a pattern and no locale parameter
+      //Zone's locale set to en_US
+      Intl.withLocale('en_US', () {
+        template = Template(
+          value:
+              r'${DateFormat("yyyy-MM-dd hh:mm:ss:ms a").format(DateTime([2024, 03, 15, 14, 18, 58, 99, 98]))}',
+        );
+        expect(
+          template.process(context: context),
+          '2024-03-15 02:18:58:1858 PM',
+        );
+      });
+
+      //DateFormat called with a pattern and no locale parameter
+      //Zone's locale set to nl_NL
+      Intl.withLocale('nl_NL', () {
+        template = Template(
+          value:
+              r'${DateFormat("yyyy-MM-dd hh:mm:ss:ms a").format(DateTime([2024, 03, 15, 14, 18, 58, 99, 98]))}',
+        );
+        expect(
+          template.process(context: context),
+          '2024-03-15 02:18:58:1858 p.m.',
+        );
+      });
     });
 
     test('now', () {
@@ -408,7 +465,8 @@ void main() {
         '1.00',
       );
 
-      //When no locale specified the current locale will be used
+      //When no locale specified the zone's locale will be used
+      //Zone's locale set to nl_NL
       Intl.withLocale('nl_NL', () {
         template = Template(
           value: r'${NumberFormat("0.00").format(number)}',
@@ -420,7 +478,8 @@ void main() {
         );
       });
 
-      //When no locale specified the current locale will be used
+      //When no locale specified the zone's locale will be used
+      //Zone's locale set to en_US
       Intl.withLocale('en_US', () {
         template = Template(
           value: r'${NumberFormat("0.00").format(number)}',
@@ -432,7 +491,9 @@ void main() {
         );
       });
 
-      //When no locale and no pattern is specified
+      //When no locale specified the zone's locale will be used
+      //Zone's locale set to nl_NL
+      //Pattern parameter is not specified
       Intl.withLocale('nl_NL', () {
         template = Template(
           value: r'${NumberFormat().format(number)}',
@@ -445,6 +506,8 @@ void main() {
       });
 
       //When no locale and no pattern is specified
+      //Zone's locale set to en_US
+      //Pattern parameter is not specified
       Intl.withLocale('en_US', () {
         template = Template(
           value: r'${NumberFormat().format(number)}',
