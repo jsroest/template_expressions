@@ -429,6 +429,28 @@ void main() {
         template.process(context: context),
         '1.00',
       );
+
+      //When no locale and no pattern is specified
+      Intl.defaultLocale = 'nl_NL';
+      template = Template(
+        value: r'${NumberFormat().format(number)}',
+      );
+
+      expect(
+        template.process(context: context),
+        '0,999',
+      );
+
+      //When no locale and no pattern is specified
+      Intl.defaultLocale = 'en_US';
+      template = Template(
+        value: r'${NumberFormat().format(number)}',
+      );
+
+      expect(
+        template.process(context: context),
+        '0.999',
+      );
     });
   });
 

@@ -4,6 +4,6 @@ import 'package:intl/intl.dart';
 class NumberFunctions {
   /// The functions related to number processing.
   static final functions = {
-    'NumberFormat': (format, [locale]) => NumberFormat(format, locale),
+    'NumberFormat': ([newPattern, locale]) => NumberFormat(newPattern, locale),
   };
 }
