@@ -48,13 +48,16 @@
     - [Member Functions](#member-functions-10)
   - [num](#num)
     - [Member Functions](#member-functions-11)
+  - [NumberFormat](#numberformat)
+    - [Constructors](#constructors-4)
+    - [Member Functions](#member-functions-12)
   - [random](#random)
     - [Example](#example-3)
   - [String](#string)
-    - [Member Functions](#member-functions-12)
+    - [Member Functions](#member-functions-13)
     - [Custom Functions](#custom-functions)
   - [Object](#object)
-    - [Member Functions](#member-functions-13)
+    - [Member Functions](#member-functions-14)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -485,6 +488,24 @@ The following [num](https://api.flutter.dev/flutter/dart-core/num-class.html) me
 | [toStringAsPrecision](https://api.flutter.dev/flutter/dart-core/num/toStringAsPrecision.html) | `${number.toStringAsPrecision(precision)}` |
 | [truncate](https://api.flutter.dev/flutter/dart-core/num/truncate.html) | `${number.truncate()}` |
 | [truncateToDouble](https://api.flutter.dev/flutter/dart-core/num/truncateToDouble.html) | `${number.truncateToDouble()}` |
+
+---
+
+### NumberFormat
+
+The [NumberFormat](https://api.flutter.dev/flutter/intl/NumberFormat-class.html) class is supported to format a number in a locale-specific way.
+
+#### Constructors
+
+```
+NumberFormat(String? newPattern, String? locale) 
+```
+
+#### Member Functions
+
+| Function | Example |
+|----------|---------|
+| [format](https://api.flutter.dev/flutter/intl/NumberFormat/format.html) | `${NumberFormat("0.00","nl_NL").format(number)}`|
 
 ---
 
