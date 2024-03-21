@@ -5,7 +5,6 @@ import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:template_expressions/expressions.dart';
 
-import 'async_evaluator.dart';
 import 'standard_members.dart';
 
 export 'functions/codex_functions.dart';
@@ -58,9 +57,6 @@ export 'functions/random_functions.dart';
 ///
 class ExpressionEvaluator {
   const ExpressionEvaluator({this.memberAccessors = const []});
-
-  const factory ExpressionEvaluator.async(
-      {List<MemberAccessor> memberAccessors}) = AsyncExpressionEvaluator;
 
   static final Map<String, Object> _delegate = {
     ...CodexFunctions.members,

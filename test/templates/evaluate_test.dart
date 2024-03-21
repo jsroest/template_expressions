@@ -18,13 +18,6 @@ void main() {
   });
 
   group('evaluate', () {
-    test('async', () async {
-      final template = Template(value: r'${seconds(2)}');
-      final result = await template.evaluateAsync();
-
-      expect(result, const Duration(seconds: 2));
-    });
-
     test('multiple expressions', () {
       final template = Template(value: r'${seconds(2)}${milliseconds(500)}');
       try {

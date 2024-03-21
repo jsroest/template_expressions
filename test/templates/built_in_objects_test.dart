@@ -256,38 +256,6 @@ void main() {
     });
   });
 
-  group('Future', () {
-    final context = {
-      'a': () async {
-        await Future.delayed(const Duration(seconds: 1));
-        return 1;
-      },
-      'b': () async {
-        await Future.delayed(const Duration(seconds: 1));
-        return 2;
-      }
-    };
-
-    test('async', () async {
-      final startTime = DateTime.now().millisecondsSinceEpoch;
-      final template = Template(
-        value: r'${a() + b()}',
-      );
-
-      expect(
-        await template.processAsync(
-          context: context,
-        ),
-        '3',
-      );
-
-      expect(
-        DateTime.now().millisecondsSinceEpoch - startTime,
-        greaterThan(900),
-      );
-    });
-  });
-
   group('JsonPath', () {
     final context = {
       'person': {
