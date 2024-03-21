@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:convert/convert.dart';
 import 'package:intl/intl.dart';
 import 'package:template_expressions/src/expressions/parse_int.dart';
 
@@ -186,10 +185,6 @@ dynamic _processIntList(List<int> bytes, String name) {
 
     case 'toBase64Url':
       result = () => const Base64Codec.urlSafe().encode(bytes);
-      break;
-
-    case 'toHex':
-      result = () => hex.encode(bytes);
       break;
 
     case 'toString':

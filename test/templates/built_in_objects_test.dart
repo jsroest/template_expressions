@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:convert/convert.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:template_expressions/template_expressions.dart';
@@ -250,15 +249,6 @@ void main() {
           context: {'input': utf8.encode(input)},
         ),
         base64.encode(utf8.encode(input)),
-      );
-    });
-
-    test('toHex', () {
-      expect(
-        Template(value: r'${input.toHex()}').process(
-          context: {'input': utf8.encode(input)},
-        ),
-        hex.encode(utf8.encode(input)),
       );
     });
 
