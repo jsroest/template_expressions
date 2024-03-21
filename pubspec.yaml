@@ -7,10 +7,11 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
+  convert: '^3.1.1'
   intl: '^0.19.0'
   json_class: '^3.0.0+12'
-  json_path: '>=0.6.3 <1.0.0'
   logging: '^1.2.0'
+  meta: '^1.10.0'
   petitparser: '^6.0.1'
   quiver: '^3.2.1'
 
