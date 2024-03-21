@@ -6,10 +6,8 @@ import 'package:template_expressions/expressions.dart';
 
 import 'standard_members.dart';
 
-export 'functions/codex_functions.dart';
 export 'functions/date_time_functions.dart';
 export 'functions/duration_functions.dart';
-export 'functions/future_functions.dart';
 export 'functions/number_functions.dart';
 export 'functions/random_functions.dart';
 
@@ -57,10 +55,8 @@ class ExpressionEvaluator {
   const ExpressionEvaluator({this.memberAccessors = const []});
 
   static final Map<String, Object> _delegate = {
-    ...CodexFunctions.members,
     ...DateTimeFunctions.functions,
     ...DurationFunctions.functions,
-    ...FutureFunctions.functions,
     ...NumberFunctions.functions,
     ...RandomFunctions.functions,
   };
