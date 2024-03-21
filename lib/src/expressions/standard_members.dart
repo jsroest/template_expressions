@@ -39,10 +39,6 @@ dynamic lookupStandardMembers(dynamic target, String name) {
     result = _processNum(target, name);
   } else if (target is String) {
     result = _processString(target, name);
-  } else if (target is Aes) {
-    result = _processAes(target, name);
-  } else if (target is Rsa) {
-    result = _processRsa(target, name);
   }
 
   if (target != null && result == null) {
@@ -59,38 +55,6 @@ dynamic lookupStandardMembers(dynamic target, String name) {
         result = target.toString;
         break;
     }
-  }
-
-  return result;
-}
-
-dynamic _processAes(Aes target, String name) {
-  dynamic result;
-
-  switch (name) {
-    case 'decrypt':
-      result = target.decrypt;
-      break;
-
-    case 'encrypt':
-      result = target.encrypt;
-      break;
-
-    case 'iv':
-      result = target.iv;
-      break;
-
-    case 'key':
-      result = target.key;
-      break;
-
-    case 'mode':
-      result = target.mode;
-      break;
-
-    case 'padding':
-      result = target.padding;
-      break;
   }
 
   return result;
@@ -625,46 +589,6 @@ dynamic _processNum(num target, String name) {
 
     case 'truncateToDouble':
       result = target.truncateToDouble;
-      break;
-  }
-
-  return result;
-}
-
-dynamic _processRsa(Rsa target, String name) {
-  dynamic result;
-
-  switch (name) {
-    case 'aes':
-      result = target.aes;
-      break;
-
-    case 'decrypt':
-      result = target.decrypt;
-      break;
-
-    case 'encoding':
-      result = target.encoding;
-      break;
-
-    case 'encrypt':
-      result = target.encrypt;
-      break;
-
-    case 'privateKey':
-      result = target.privateKey;
-      break;
-
-    case 'publicKey':
-      result = target.publicKey;
-      break;
-
-    case 'sign':
-      result = target.sign;
-      break;
-
-    case 'verify':
-      result = target.verify;
       break;
   }
 
