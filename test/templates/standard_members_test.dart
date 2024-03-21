@@ -231,19 +231,6 @@ void main() {
   });
 
   group('String', () {
-    test('decode', () {
-      final template = Template(
-        value: r'${input.decode()["last"] + ", " + input.decode()["first"]}',
-      );
-
-      expect(
-        template.process(context: {
-          'input': '{"first": "John", "last": "Smith"}',
-        }),
-        'Smith, John',
-      );
-    });
-
     test('replaceAll', () {
       final template = Template(value: r'${input.replaceAll("\n", "\\n")}');
 

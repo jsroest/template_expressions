@@ -7,7 +7,6 @@ import 'package:json_class/json_class.dart';
 import 'package:json_path/json_path.dart';
 import 'package:logging/logging.dart';
 import 'package:template_expressions/template_expressions.dart';
-import 'package:yaon/yaon.dart';
 
 /// Associates member functions from common objects for use by the expression
 /// evaluator.
@@ -682,10 +681,6 @@ dynamic _processString(String target, String name) {
 
     case 'contains':
       result = target.contains;
-      break;
-
-    case 'decode':
-      result = () => yaon.parse(target);
       break;
 
     case 'endsWith':
