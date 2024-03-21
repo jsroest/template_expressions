@@ -1,7 +1,6 @@
 library expressions.evaluator;
 
 import 'package:json_class/json_class.dart';
-import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:template_expressions/expressions.dart';
 
@@ -66,8 +65,6 @@ class ExpressionEvaluator {
     ...RandomFunctions.functions,
   };
 
-  static final Logger _logger = Logger('ExpressionEvaluator');
-
   final List<MemberAccessor> memberAccessors;
 
   dynamic eval(
@@ -114,9 +111,6 @@ class ExpressionEvaluator {
           "Unknown expression type '${expression.runtimeType}'");
     }
 
-    _logger.finest(
-      '[eval]: evaluated.... [${expression.toTokenString()}] => [$result]',
-    );
     return result;
   }
 
@@ -161,7 +155,6 @@ class ExpressionEvaluator {
   }) {
     final obj = eval(expression.object, context);
 
-    _logger.finest('[evalMemberExpression]: [${expression.property.name}]');
     return getMember(obj, expression.property.name, nullable: nullable);
   }
 
@@ -186,19 +179,7 @@ class ExpressionEvaluator {
     final callee = eval(expression.callee, context);
     final arguments =
         expression.arguments.map((e) => eval(e, context)).toList();
-
-    _logger.finest('[evalCallExpression]: [${expression.callee}]');
-
-    try {
-      return Function.apply(callee, arguments);
-    } catch (e, stack) {
-      _logger.severe(
-        '[evalCallExpression]: Exception in evaluation of: [${expression.toTokenString()}]',
-        e,
-        stack,
-      );
-      rethrow;
-    }
+    return Function.apply(callee, arguments);
   }
 
   @protected

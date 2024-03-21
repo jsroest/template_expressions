@@ -1,24 +1,9 @@
 import 'dart:convert';
 
-import 'package:logging/logging.dart';
 import 'package:template_expressions/template_expressions.dart';
 import 'package:test/test.dart';
 
 void main() {
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((record) {
-    // ignore: avoid_print
-    print('${record.level.name}: ${record.time}: ${record.message}');
-    if (record.error != null) {
-      // ignore: avoid_print
-      print('${record.error}');
-    }
-    if (record.stackTrace != null) {
-      // ignore: avoid_print
-      print('${record.stackTrace}');
-    }
-  });
-
   group('Codex', () {
     test('base64', () {
       const input =
