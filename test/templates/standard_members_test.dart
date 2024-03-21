@@ -27,7 +27,52 @@ void main() {
       );
     });
 
-    test('subtract', () {
+    test('compareTo', () {
+      final context = {
+        'start': start,
+      };
+      final template = Template(
+        syntax: [const MustacheExpressionSyntax()],
+        value: '{{start.compareTo(DateTime(2022, 2, 6))}}',
+      );
+
+      expect(
+        template.process(context: context),
+        1,
+      );
+    });
+
+    test('isAfter', () {
+      final context = {
+        'start': start,
+      };
+      final template = Template(
+        syntax: [const MustacheExpressionSyntax()],
+        value: '{{start.isAfter(DateTime(2021))}}',
+      );
+
+      expect(
+        template.process(context: context),
+        'true',
+      );
+    });
+
+    test('isBefore', () {
+      final context = {
+        'start': start,
+      };
+      final template = Template(
+        syntax: [const MustacheExpressionSyntax()],
+        value: '{{start.isBefore(DateTime(2021))}}',
+      );
+
+      expect(
+        template.process(context: context),
+        'false',
+      );
+    });
+
+    test('subtract duration', () {
       final context = {
         'start': start,
       };
@@ -47,6 +92,69 @@ void main() {
         ).toString(),
       );
     });
+
+    test('subtract milliseconds', () {
+      final context = {
+        'start': start,
+      };
+      final template = Template(
+        syntax: [const MustacheExpressionSyntax()],
+        value: '{{start.subtract(30000)}}',
+      );
+
+      expect(
+        template.process(context: context),
+        DateTime.fromMillisecondsSinceEpoch(
+          start.millisecondsSinceEpoch -
+              const Duration(milliseconds: 30000).inMilliseconds,
+        ).toString(),
+      );
+    });
+
+    test(
+      'toIso8601String',
+      () {
+        final context = {
+          'start': start,
+        };
+        final template = Template(
+          syntax: [const MustacheExpressionSyntax()],
+          value: '{{start.toIso8601String()}}',
+        );
+
+        expect(template.process(context: context), '2022-02-07T00:00:00.000');
+      },
+    );
+
+    test(
+      'toLocal',
+      () {
+        final context = {
+          'start': start,
+        };
+        final template = Template(
+          syntax: [const MustacheExpressionSyntax()],
+          value: '{{start.toLocal()}}',
+        );
+
+        expect(template.process(context: context), '2022-02-07 00:00:00.000');
+      },
+    );
+
+    test(
+      'toUtc',
+      () {
+        final context = {
+          'start': start,
+        };
+        final template = Template(
+          syntax: [const MustacheExpressionSyntax()],
+          value: '{{start.toUtc()}}',
+        );
+
+        expect(template.process(context: context), '2022-02-06 23:00:00.000Z');
+      },
+    );
   });
 
   group('List', () {
