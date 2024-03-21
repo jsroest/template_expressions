@@ -11,7 +11,6 @@ export 'functions/codex_functions.dart';
 export 'functions/date_time_functions.dart';
 export 'functions/duration_functions.dart';
 export 'functions/future_functions.dart';
-export 'functions/json_path_functions.dart';
 export 'functions/number_functions.dart';
 export 'functions/random_functions.dart';
 
@@ -63,7 +62,6 @@ class ExpressionEvaluator {
     ...DateTimeFunctions.functions,
     ...DurationFunctions.functions,
     ...FutureFunctions.functions,
-    ...JsonPathFunctions.functions,
     ...NumberFunctions.functions,
     ...RandomFunctions.functions,
   };

@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:intl/intl.dart';
 import 'package:json_class/json_class.dart';
-import 'package:json_path/json_path.dart';
 import 'package:logging/logging.dart';
 import 'package:template_expressions/template_expressions.dart';
 
@@ -23,10 +22,6 @@ dynamic lookupStandardMembers(dynamic target, String name) {
     result = _processDuration(target, name);
   } else if (target is Iterable) {
     result = _processIterable(target, name);
-  } else if (target is JsonPath) {
-    result = _processJsonPath(target, name);
-  } else if (target is JsonPathMatch) {
-    result = _processJsonPathMatch(target, name);
   } else if (target is Logger) {
     result = _processLogger(target, name);
   } else if (target is Map) {
@@ -286,38 +281,6 @@ dynamic _processIterable(Iterable target, String name) {
 
   if (target is List && result == null) {
     result = _processList(target, name);
-  }
-
-  return result;
-}
-
-dynamic _processJsonPath(JsonPath target, String name) {
-  dynamic result;
-
-  switch (name) {
-    case 'read':
-      result = target.read;
-      break;
-
-    case 'readValues':
-      result = target.readValues;
-      break;
-  }
-
-  return result;
-}
-
-dynamic _processJsonPathMatch(JsonPathMatch target, String name) {
-  dynamic result;
-
-  switch (name) {
-    case 'path':
-      result = target.path;
-      break;
-
-    case 'value':
-      result = target.value;
-      break;
   }
 
   return result;

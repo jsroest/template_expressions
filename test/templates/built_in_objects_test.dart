@@ -256,51 +256,6 @@ void main() {
     });
   });
 
-  group('JsonPath', () {
-    final context = {
-      'person': {
-        'name': {
-          'first': 'John',
-          'last': 'Doe',
-        },
-      },
-    };
-    test('JsonPath', () {
-      final template = Template(
-        value:
-            r'${JsonPath("$.name.first").read(person).first.value + " " + JsonPath("$.name.last").read(person).first.value}',
-      );
-
-      expect(
-        template.process(context: context),
-        'John Doe',
-      );
-    });
-
-    test('json_path', () {
-      final template = Template(
-        value:
-            r'${json_path(person, "$.name.first").toUpperCase() + " " + json_path(person, "$.name.last").toUpperCase()}',
-      );
-
-      expect(
-        template.process(context: context),
-        'JOHN DOE',
-      );
-    });
-
-    test('json_path simple', () {
-      final template = Template(
-        value: r"${json_path(person, '$.name.first')}",
-      );
-
-      expect(
-        template.process(context: context),
-        'John',
-      );
-    });
-  });
-
   group('List<int>', () {
     const input = 'Hello, World!';
 

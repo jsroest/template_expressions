@@ -75,17 +75,5 @@ void main() {
         'empty',
       );
     });
-
-    test('json_path: nullable', () {
-      final template = Template(
-        value:
-            r'${json_path(person, "$.name.firstName").isNotEmpty == true ? "notEmpty" : "empty"}',
-      );
-
-      expect(
-        template.process(context: context),
-        'empty',
-      );
-    });
   });
 }
