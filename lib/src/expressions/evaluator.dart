@@ -9,7 +9,6 @@ import 'async_evaluator.dart';
 import 'standard_members.dart';
 
 export 'functions/codex_functions.dart';
-export 'functions/crypto_functions.dart';
 export 'functions/date_time_functions.dart';
 export 'functions/duration_functions.dart';
 export 'functions/future_functions.dart';
@@ -65,7 +64,6 @@ class ExpressionEvaluator {
 
   static final Map<String, Object> _delegate = {
     ...CodexFunctions.members,
-    ...CryptoFunctions.functions,
     ...DateTimeFunctions.functions,
     ...DurationFunctions.functions,
     ...FutureFunctions.functions,

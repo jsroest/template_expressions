@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:convert/convert.dart';
-import 'package:crypto/crypto.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
@@ -26,81 +25,6 @@ void main() {
   //Initialize the locale date to prevent this exception:
   //LocaleDataException: Locale data has not been initialized, call initializeDateFormatting(<locale>).
   setUp(initializeDateFormatting);
-
-  group('Crypto', () {
-    test(
-      'hmac',
-      () {
-        const key =
-            'YWFCa3hKezJNRlQrK0EhPkBrJj5oem42OlUpWCElJVlaMmM+K3RhamA7Zjk3Z1ArRkQ7K1J6bl46diRVSz03UDJwTlczeydnNWc/MmtzdlNmY3I1fUszcShnI31jITg+XlRXcXd4V0VbRntHSEFBS2grUUZUKFR6MmFaPVQqJ04=';
-        final context = {'key': key};
-
-        final template = Template(value: r'${hmac(key, "foobar")}');
-        final actual = template.process(context: context);
-
-        expect(actual,
-            'e52f174665d7ad3791c2cf8d1f7ab93f654189926975c02defbe3439cdb48716');
-      },
-    );
-
-    test(
-      'hmac256',
-      () {
-        const key =
-            'YWFCa3hKezJNRlQrK0EhPkBrJj5oem42OlUpWCElJVlaMmM+K3RhamA7Zjk3Z1ArRkQ7K1J6bl46diRVSz03UDJwTlczeydnNWc/MmtzdlNmY3I1fUszcShnI31jITg+XlRXcXd4V0VbRntHSEFBS2grUUZUKFR6MmFaPVQqJ04=';
-        final context = {'key': key};
-
-        final template = Template(value: r'${hmac256(key, "foobar")}');
-        final actual = template.process(context: context);
-
-        expect(actual,
-            'e52f174665d7ad3791c2cf8d1f7ab93f654189926975c02defbe3439cdb48716');
-      },
-    );
-
-    test(
-      'hmac512',
-      () {
-        const key =
-            'YWFCa3hKezJNRlQrK0EhPkBrJj5oem42OlUpWCElJVlaMmM+K3RhamA7Zjk3Z1ArRkQ7K1J6bl46diRVSz03UDJwTlczeydnNWc/MmtzdlNmY3I1fUszcShnI31jITg+XlRXcXd4V0VbRntHSEFBS2grUUZUKFR6MmFaPVQqJ04=';
-        final context = {'key': key};
-
-        final template = Template(value: r'${hmac512(key, "foobar")}');
-        final actual = template.process(context: context);
-
-        expect(actual,
-            '1a3a8dc298ecc8c97855e29454145a2deb39a86bb56f49c2bb951c9cbd07f22abf28d868230834973fb4f87cb6121f6cbb2d4ce29f378305a5b3cd7dc8d09aad');
-      },
-    );
-
-    test('md5', () {
-      final template = Template(value: r'${md5("foobar")}');
-      final actual = template.process();
-
-      expect(actual, md5.convert(utf8.encode('foobar')).toString());
-    });
-
-    test('sha', () {
-      final template = Template(value: r'${sha("foobar")}');
-      final actual = template.process();
-
-      expect(actual, sha256.convert(utf8.encode('foobar')).toString());
-    });
-
-    test('sha256', () {
-      final template = Template(value: r'${sha256("foobar")}');
-      final actual = template.process();
-
-      expect(actual, sha256.convert(utf8.encode('foobar')).toString());
-    });
-
-    test('sha512', () {
-      final template = Template(value: r'${sha512("foobar")}');
-      final actual = template.process();
-
-      expect(actual, sha512.convert(utf8.encode('foobar')).toString());
-    });
-  });
 
   group('DateTime', () {
     final context = <String, dynamic>{};
