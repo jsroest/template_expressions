@@ -102,7 +102,7 @@ void main() {
         );
         expect(
           template.process(context: context),
-          'March 15, 2024 2:18:58 PM',
+          anyOf('March 15, 2024 2:18:58 PM', 'March 15, 2024 2:18:58 PM'),
         );
       });
 
