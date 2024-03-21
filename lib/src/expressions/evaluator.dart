@@ -1,8 +1,8 @@
 library expressions.evaluator;
 
-import 'package:json_class/json_class.dart';
 import 'package:meta/meta.dart';
 import 'package:template_expressions/expressions.dart';
+import 'package:template_expressions/src/expressions/parse_bool.dart';
 
 import 'standard_members.dart';
 
@@ -323,7 +323,7 @@ class ExpressionEvaluator {
     ConditionalExpression expression,
     Map<String, dynamic> context,
   ) {
-    final test = JsonClass.parseBool(eval(expression.test, context));
+    final test = parseBool(eval(expression.test, context));
     return test
         ? eval(expression.consequent, context)
         : eval(expression.alternate, context);

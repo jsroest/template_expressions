@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
 import 'package:intl/intl.dart';
-import 'package:json_class/json_class.dart';
+import 'package:template_expressions/src/expressions/parse_int.dart';
 
 /// Associates member functions from common objects for use by the expression
 /// evaluator.
@@ -79,7 +79,7 @@ dynamic _processDateTime(DateTime target, String name) {
             target.millisecondsSinceEpoch +
                 ((duration is Duration)
                     ? duration.inMilliseconds
-                    : JsonClass.maybeParseInt(duration)!),
+                    : maybeParseInt(duration)!),
             isUtc: target.isUtc,
           );
       break;
@@ -108,7 +108,7 @@ dynamic _processDateTime(DateTime target, String name) {
       result = (duration) => target.subtract(
             duration is Duration
                 ? duration
-                : Duration(milliseconds: JsonClass.maybeParseInt(duration)!),
+                : Duration(milliseconds: maybeParseInt(duration)!),
           );
       break;
 
@@ -136,7 +136,7 @@ dynamic _processDuration(Duration target, String name) {
           target.inMilliseconds +
           (duration is Duration
               ? duration.inMilliseconds
-              : JsonClass.maybeParseInt(duration)!);
+              : maybeParseInt(duration)!);
       break;
 
     case 'compareTo':
@@ -168,7 +168,7 @@ dynamic _processDuration(Duration target, String name) {
             milliseconds: target.inMilliseconds -
                 (duration is Duration
                     ? duration.inMilliseconds
-                    : JsonClass.maybeParseInt(duration)!),
+                    : maybeParseInt(duration)!),
           );
       break;
   }
@@ -296,7 +296,7 @@ dynamic _processList(List target, String name) {
 
     case 'toJson':
       result = ([padding]) {
-        final indent = JsonClass.maybeParseInt(padding) ?? 0;
+        final indent = maybeParseInt(padding) ?? 0;
 
         return indent == 0
             ? json.encode(target)
@@ -354,7 +354,7 @@ dynamic _processMap(Map target, String name) {
 
     case 'toJson':
       result = ([padding]) {
-        final indent = JsonClass.maybeParseInt(padding) ?? 0;
+        final indent = maybeParseInt(padding) ?? 0;
 
         return indent == 0
             ? json.encode(target)
